@@ -19,7 +19,7 @@ public class QuestionOptionEndpoint {
     private final QuestionOptionMapper questionOptionMapper;
 
     @GetMapping
-    public ResponseEntity<List<QuestionOptionDto>> getAllCars() {
+    public ResponseEntity<List<QuestionOptionDto>> getAllOptions() {
         List<QuestionOption> all = questionOptionService.findAll();
         if (all.size() == 0) {
             return ResponseEntity.notFound().build();
@@ -33,20 +33,18 @@ public class QuestionOptionEndpoint {
         return ResponseEntity.ok(questionOptionMapper.mapToDto(questionOption));
     }
 
-
-    //konkret harci tarberakner@
-    @GetMapping("/view/{questionId}")
+    @GetMapping("/{questionId}")
     public String viewOptions(@PathVariable("questionId") int questionId, Model model) {
-        List<QuestionOption> options = questionOptionService.getQuestionOptionByQuestionId(questionId);
+        List<QuestionOption> options = questionOptionService.getAllQuestionOptionByQuestionId(questionId);
         model.addAttribute("options", options);
         return "viewOptions";
     }
     @GetMapping("/view/{questionId}")
     public ResponseEntity<QuestionOption> update(@PathVariable("id") int id ) {
-        List<QuestionOption> byId = questionOptionService.getQuestionOptionByQuestionId(id);
+        List<QuestionOption> byId = questionOptionService.getAllQuestionOptionByQuestionId(id);
         if (byId.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok((QuestionOption) questionOptionService.getQuestionOptionByQuestionId(id));
+        return ResponseEntity.ok((QuestionOption) questionOptionService.getAllQuestionOptionByQuestionId(id));
     }
 }

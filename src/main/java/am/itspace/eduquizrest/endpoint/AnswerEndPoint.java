@@ -27,7 +27,7 @@ public class AnswerEndPoint {
         return ResponseEntity.ok(answerMapper.mapToDto(answer));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<AnswerDto>> getAllAnswer() {
         List<Answer> all = answerService.findAll();
         if (all.size() == 0) {
@@ -37,7 +37,7 @@ public class AnswerEndPoint {
         return ResponseEntity.ok(answerDtos);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable("id") int id) {
         if (answerService.existsById(id)) {
             answerService.deleteById(id);
