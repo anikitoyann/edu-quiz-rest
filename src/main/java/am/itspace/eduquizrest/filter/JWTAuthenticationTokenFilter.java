@@ -1,4 +1,5 @@
 package am.itspace.eduquizrest.filter;
+
 import am.itspace.eduquizrest.sequrity.CurrentUserDetailServiceImpl;
 import am.itspace.eduquizrest.util.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
@@ -20,9 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Slf4j
 public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
-
     private final JwtTokenUtil tokenUtil;
-
     private final CurrentUserDetailServiceImpl userDetailsService;
 
     @Override

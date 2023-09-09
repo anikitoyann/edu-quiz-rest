@@ -2,10 +2,7 @@ package am.itspace.eduquizrest.endpoint;
 
 import com.example.eduquizcommon.dto.AnswerDto;
 import com.example.eduquizcommon.dto.CreateAnswerRequestDto;
-import com.example.eduquizcommon.dto.CreateQuizRequestDto;
-import com.example.eduquizcommon.dto.QuizDto;
 import com.example.eduquizcommon.entity.Answer;
-import com.example.eduquizcommon.entity.Quiz;
 import com.example.eduquizcommon.mapper.mapper.AnswerMapper;
 import com.example.eduquizcommon.service.AnswerService;
 import lombok.RequiredArgsConstructor;

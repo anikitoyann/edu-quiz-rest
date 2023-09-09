@@ -1,4 +1,5 @@
 package am.itspace.eduquizrest.endpoint;
+
 import com.example.eduquizcommon.dto.AnswerDto;
 import com.example.eduquizcommon.dto.CreateQuizRequestDto;
 import com.example.eduquizcommon.dto.QuizDto;
@@ -26,26 +27,29 @@ import java.util.Optional;
 @RequestMapping("/quiz")
 public class QuizEndpoint {
     private final QuizService quizService;
-    private  final QuizMapper quizMapper;
-    private QuestionService questionService;
-    private QuestionOptionService questionOptionService;
+    private final QuizMapper quizMapper;
+    private final QuestionService questionService;
+    private final QuestionOptionService questionOptionService;
 
     @PostMapping("/add")
     public ResponseEntity<QuizDto> create(@RequestBody CreateQuizRequestDto createQuizRequestDto) {
         Quiz quiz = quizService.save(quizMapper.map(createQuizRequestDto));
         return ResponseEntity.ok(quizMapper.mapToDto(quiz));
     }
+
     @GetMapping("/all")
     public ResponseEntity<List<QuizDto>> getAllQuiz() {
         List<QuizDto> quizDto = quizMapper.mapListToDtos(quizService.findAll());
         return ResponseEntity.ok(quizDto);
     }
+
     @DeleteMapping("/{quizId}")
     public ResponseEntity<?> deleteById(@PathVariable("quizId") int id) {
-            quizService.deleteById(id);
-            return ResponseEntity.noContent().build();
+        quizService.deleteById(id);
+        return ResponseEntity.noContent().build();
 
-}
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Quiz> singleItem(@PathVariable("id") int id) {
         Optional<Quiz> byId = quizService.findById(id);
@@ -55,6 +59,7 @@ public class QuizEndpoint {
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
+
     @GetMapping("/single/{quizId}")
     public ResponseEntity<SingleQuizDto> getSingleQuiz(@PathVariable int quizId) {
         Optional<Quiz> byId = quizService.findById(quizId);
@@ -94,7 +99,7 @@ public class QuizEndpoint {
             return ResponseEntity.notFound().build();
         }
         Quiz quizDb = byId.get();
-        if (quiz.getTitle()!= null && !quiz.getTitle().isEmpty()) {
+        if (quiz.getTitle() != null && !quiz.getTitle().isEmpty()) {
             quizDb.setTitle(quiz.getTitle());
         }
         if (quiz.getCreatedDateTime() != null) {

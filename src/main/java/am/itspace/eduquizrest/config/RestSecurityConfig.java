@@ -13,11 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 @Configuration
 @RequiredArgsConstructor
 public class RestSecurityConfig {
-
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
@@ -33,11 +31,11 @@ public class RestSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/","/quiz/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/user/register").permitAll()
                 .requestMatchers(HttpMethod.POST,"/user/auth").permitAll()
-              //  .requestMatchers(HttpMethod.POST, "/admin/**","/cars/**", "/tours/createTour").hasAuthority("ADMIN")
-               // .requestMatchers(HttpMethod.DELETE, "/cars/delete/**", "/tours/delete/**", "/admin/delete/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/option/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/quiz/add").hasAuthority("TEACHER")
+                .requestMatchers(HttpMethod.DELETE, "/quiz/delete").hasAuthority("ADMIN")
               //  .requestMatchers(HttpMethod.PUT, "/admin/**", "/cars/**", "/tours/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
-
         httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
